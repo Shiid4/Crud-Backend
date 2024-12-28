@@ -29,7 +29,7 @@ router.post("/add", upload, async (req, res) => {
         .json({ message: "No file uploaded", type: "danger" });
     }
     // Log the body to see the parsed data
-    console.log("req.body:", req.body);
+    //console.log("req.body:", req.body);
     try {
       const user = new User({
         name: req.body.name,
@@ -62,8 +62,18 @@ router.post("/add", upload, async (req, res) => {
   // });
 });
 
-router.get("/", (req, res) => {
-  res.render("index", { title: "Home Page" }); //pass variable 'title' with value "Home Page" to the view
+//get all users route
+router.get("/", async (req, res) => {
+  try{
+    const users = await User.find().exec();
+    res.render("index", {
+      title: "Home Page",
+      users: users,
+    });
+  } catch (err) {
+    res.json({message: err.message})
+  }
+ 
 });
 
 router.get("/add", (req, res) => {

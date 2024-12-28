@@ -41,6 +41,9 @@ app.set("view engine", "ejs"); //tell express to use Embedded JavaScript as temp
 //route prefix
 app.use("", require("./routes/routes"));
 
+//make the image appear
+app.use(express.static("uploads")); //serve static files from the public folder
+
 app.listen(PORT, () => {
   console.log(`Server started at http://localhost:${PORT}`);
 });
